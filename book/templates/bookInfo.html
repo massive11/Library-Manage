@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bookInfo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover:not(.active) {
+            background-color: #111;
+        }
+
+        .active {
+            background-color: #4CAF50;
+        }
+
+        #delete-but {
+            margin-left: 10%;
+        }
+
+        #update-but {
+            margin-left: 1%;
+        }
+
+
+    </style>
+</head>
+<body>
+<ul>
+    <li><a href="#home">主页</a></li>
+    <li><a href="info">图书查询</a></li>
+    <li><a href="add">新增图书</a></li>
+
+</ul>
+
+<div class="panel panel-default" style="width: 90%;margin-left: 5%;margin-top: 1%">
+    <form id="book-info-form" action="/book/info" method="post">
+        {% csrf_token %}
+
+        <div class="form-group has-feedback">
+            <div class="input-group" style="width: 25%;margin-left: 0%;margin-top: 10px">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-book"></span></span>
+                <input name="input-name" class="form-control" placeholder="请输入书名" maxlength="100">
+            </div>
+        </div>
+
+        <div class="form-group has-feedback">
+            <div class="input-group" style="width: 25%;margin-top: 10px">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-book"></span></span>
+                <input name="input-isbn" class="form-control" placeholder="请输入ISBN" maxlength="100">
+            </div>
+        </div>
+
+        <div class="text-right" style="margin-right: 75%">
+            <button form="book-info-form" class="btn btn-primary" type="submit" id="btn-add">查询</button>
+        </div>
+
+        <div class="dropdown" style="margin-top: 15px">
+            <button type="button" class="btn dropdown-toggle" id="dropdownMenu1"
+                    data-toggle="dropdown">
+                类别
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="#">人文</a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="#">科技</a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="#">自然</a>
+                </li>
+                <li role="presentation" class="divider"></li>
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="#">艺术</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="panel-heading">
+            <h3 class="panel-title" style="text-align:center">图书信息</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>ISBN</th>
+                    <th>书名</th>
+                    <th>作者</th>
+                    <th>出版社</th>
+                    <th>类别</th>
+                    <th>藏书量</th>
+                    <th>可借数量</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for book in books_ret %}
+                    <tr>
+                        <td class="isbn">{{ book.isbn }}</td>
+                        <td class="book-name">{{ book.bookName }}</td>
+                        <td class="book-author">{{ book.author }}</td>
+                        <td class="book-press">{{ book.press }}</td>
+                        <td class="book-category">{{ book.category_id }}</td>
+                        <td class="book-number">{{ book.book_number }}</td>
+                        <td class="book-available">{{ book.book_number }}</td>
+                        <td>
+                            <button type="button" id="update-but" class="update-btn" data-toggle="modal">修改</button>
+                            <button type="button" id="delete-but" class="delete-btn" data-toggle="modal">删除</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </form>
+
+</div>
+
+<!-- 修改图书信息窗口 -->
+<div id="update" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-title">
+                <h1 class="text-center">修改图书信息</h1>
+            </div>
+            <div class="modal-body">
+                <form id="form-login">
+                    <div class="form-group has-feedback">
+                        <label for="ad-isbn">isbn</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
+                            <input id="update-isbn" class="form-control" placeholder="修改ISBN" maxlength="13"
+                                   type="text">
+                        </div>
+                        <span style="color:red;display: none;" class="tips"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label for="ad-bname">书名</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-book"></span></span>
+                            <input id="update-name" class="form-control" placeholder="修改书名" maxlength="20">
+                        </div>
+
+                        <span style="color:red;display: none;" class="tips"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label for="ad-writer">作者</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                            <input id="update-author" class="form-control" placeholder="修改作者" maxlength="10">
+                        </div>
+
+                        <span style="color:red;display: none;" class="tips"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label for="update-press">出版社</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></span>
+                            <input id="update-press" class="form-control" placeholder="修改出版社" maxlength="10">
+                        </div>
+
+                        <span style="color:red;display: none;" class="tips"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    </div>
+
+
+                    <div class="form-group has-feedback">
+                        <label for="text-category">类别</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            <input id="update-category" class="form-control" placeholder="修改类别" maxlength="4">
+                        </div>
+
+                        <span style="color:red;display: none;" class="tips"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label for="ad-num">藏书量</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-plus"></span></span>
+                            <input id="update-number" class="form-control" placeholder="修改藏书量" maxlength="4">
+                        </div>
+
+                        <span style="color:red;display: none;" class="tips"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label for="ad-num">可借数量</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-plus"></span></span>
+                            <input id="update-available" class="form-control" placeholder="修改可借数量" maxlength="4">
+                        </div>
+
+                        <span style="color:red;display: none;" class="tips"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    </div>
+
+                    <div class="text-right">
+                        <button class="btn btn-primary" type="button" id="btn-update">确定</button>
+                        <button class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 删除图书信息窗口 -->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                {% csrf_token %}
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    信息
+                </h4>
+            </div>
+            <div class="modal-body">
+                是否删除图书：<a id="delete-book_name"></a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="d-btn">
+                    提交更改
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<script type="text/javascript">
+    {#console.log( tr.find(".book-category").text())#}
+    $(".delete-btn").click(function () {
+        $("#delete").modal('show');
+        tr = $(this).parents("tr");
+        $("#delete-book_name").text(tr.find(".book-name").text());
+
+    });
+
+    $("#d-btn").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "/book/delete",
+            data: {
+                "isbn": tr.find(".isbn").text()
+            },
+            success: function () {
+                $("#delete").modal('hide');
+            }
+        });
+
+    });
+
+    $(".update-btn").click(function () {
+        $("#update").modal('show');
+        tr = $(this).parents("tr");
+
+        $("#update-isbn").val(tr.find(".isbn").text());
+        $("#update-name").val(tr.find(".book-name").text());
+        $("#update-press").val(tr.find(".book-press").text());
+        $("#update-author").val(tr.find(".book-author").text());
+        $("#update-category").val(tr.find(".book-category").text());
+        $("#update-number").val(tr.find(".book-number").text());
+        $("#update-available").val(tr.find(".book-available").text());
+
+    });
+
+    $("#btn-update").click(function () {
+        let bookname = $("#update-name").val();
+        let bookpress = $("#update-press").val();
+        let bookauthor = $("#update-author").val();
+        let bookcategory = $("#update-category").val();
+        let booknumber = $("#update-number").val();
+        let bookavailable = $("#update-available").val();
+        $.ajax({
+            type: "POST",
+            url: "/book/update",
+            data: {
+                "isbn": tr.find(".isbn").text(),
+                "book-name": bookname,
+                "book-press": bookpress,
+                "book-author": bookauthor,
+                "book-category": bookcategory,
+                "book-number": booknumber,
+                "book-available": bookavailable
+            },
+            success: function () {
+                $("#update").modal('hide');
+            }
+        });
+
+    });
+</script>
+</body>
+</html>
