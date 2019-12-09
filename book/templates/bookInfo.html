@@ -62,42 +62,27 @@
         <div class="form-group has-feedback">
             <div class="input-group" style="width: 25%;margin-left: 0%;margin-top: 10px">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-book"></span></span>
-                <input name="input-name" class="form-control" placeholder="请输入书名" maxlength="100">
+                <input id="input-name" class="form-control" placeholder="请输入书名" maxlength="100">
             </div>
         </div>
 
         <div class="form-group has-feedback">
             <div class="input-group" style="width: 25%;margin-top: 10px">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-book"></span></span>
-                <input name="input-isbn" class="form-control" placeholder="请输入ISBN" maxlength="100">
+                <input id="input-isbn" class="form-control" placeholder="请输入ISBN" maxlength="100">
             </div>
         </div>
 
-        <div class="text-right" style="margin-right: 75%">
-            <button form="book-info-form" class="btn btn-primary" type="submit" id="btn-add">查询</button>
-        </div>
-
-        <div class="dropdown" style="margin-top: 15px">
-            <button type="button" class="btn dropdown-toggle" id="dropdownMenu1"
-                    data-toggle="dropdown">
-                类别
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                <li role="presentation">
-                    <a role="menuitem" tabindex="-1" href="#">人文</a>
-                </li>
-                <li role="presentation">
-                    <a role="menuitem" tabindex="-1" href="#">科技</a>
-                </li>
-                <li role="presentation">
-                    <a role="menuitem" tabindex="-1" href="#">自然</a>
-                </li>
-                <li role="presentation" class="divider"></li>
-                <li role="presentation">
-                    <a role="menuitem" tabindex="-1" href="#">艺术</a>
-                </li>
-            </ul>
+        <div class="text-right" style="margin-right:75%">
+            <select>
+                <option>全部</option>
+                <option value="人文">人文</option>
+                <option value="科技">科技</option>
+                <option value="自然">自然</option>
+                <option value="艺术">艺术</option>
+                <option value="外文">外文</option>
+            </select>
+            <button form="book-info-form" class="btn btn-primary" type="submit" id="btn-search">查询</button>
         </div>
 
         <div class="panel-heading">
@@ -278,7 +263,22 @@
 </div>
 
 <script type="text/javascript">
-    {#console.log( tr.find(".book-category").text())#}
+    window.onload = function () {
+        let searchname = $("#input-name").val();
+        let searchisbn = $("#input-isbn").val();
+        $.ajax({
+            type: "POST",
+            url: "/book/bookSearch",
+            data: {
+                "search-name": searchname,
+                "search-isbn": searchisbn,
+            },
+            success: function (data) {
+                console.log(data)
+            }
+        });
+    };
+
     $(".delete-btn").click(function () {
         $("#delete").modal('show');
         tr = $(this).parents("tr");
@@ -339,6 +339,22 @@
         });
 
     });
+
+    $("#btn-search").click(function () {
+        let searchname = $("#input-name").val();
+        let searchisbn = $("#input-isbn").val();
+        $.ajax({
+            type: "POST",
+            url: "/book/bookSearch",
+            data: {
+                "search-name": searchname,
+                "search-isbn": searchisbn,
+            },
+            success: function () {
+        });
+    });
+
+
 </script>
 </body>
 </html>

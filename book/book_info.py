@@ -28,7 +28,8 @@ def add(request):
     return render(request, "add.html")
 
 
-# 查询页面的数据展示
+#查询页面的数据展示
+@csrf_exempt
 def bookInfo(request):
     request.encoding = 'utf-8'
     books = []
@@ -38,6 +39,20 @@ def bookInfo(request):
             books.append(model_to_dict(e))
     print(books)
     return render(request, "bookInfo.html", {'books_ret': books})
+
+#查询页面的输入框搜索
+@csrf_exempt
+def bookSearch(request):
+    request.encoding = 'utf-8'
+    arr = []
+    if request.POST:
+        s_name = request.POST.get("search-name")
+        s_isbn = request.POST.get("search-isbn")
+        search_result = BookInfo.objects.filter(bookName__contains=s_name, isbn__contains=s_isbn)
+        for i in search_result:
+            arr.append(model_to_dict(i))
+        print(arr)
+    return HttpResponse(json.dumps(arr), content_type='application/json')
 
 
 # 删除图书时的数据库交互
@@ -73,6 +88,6 @@ def update(request):
     number = request.POST.get("book-number")
     a_number = request.POST.get("book-available")
     models.BookInfo.objects.filter(isbn = r).update(bookName = name, author = b_author, press = b_press, category_id = n_category, book_number = number)
-    models.BookStatus.objects.filter(isbn = r).update(lend_number = a_number)
+    models.BookStatus.objects.filter(isbn = r).update(book_number = number, lend_number = a_number)
     print(r,name,b_author,b_press,n_category,number,a_number)
     return HttpResponse(json.dumps({}), content_type='application/json')
