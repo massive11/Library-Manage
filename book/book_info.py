@@ -17,12 +17,14 @@ def add(request):
         bookName = request.POST['input-name']
         author = request.POST['input-author']
         press = request.POST['input-press']
-        category_id = int(request.POST['input-category'])
-        book_number = int(request.POST['input-num'])
-
+        category_id = request.POST['input-category']
+        book_number = request.POST['input-num']
+        available = request.POST['input-num']
         print(isbn, bookName, author, press, category_id, book_number)
         book = BookInfo(isbn=isbn, bookName=bookName, author=author, press=press, category_id=category_id,
                         book_number=book_number)
+        status = BookStatus(isbn = isbn, book_number=book_number,lend_number=available)
+        status.save()
         book.save()
 
     return render(request, "add.html")
@@ -33,11 +35,16 @@ def add(request):
 def bookInfo(request):
     request.encoding = 'utf-8'
     books = []
-    if request.POST:
+    if True:
         book = BookInfo.objects.all()
         for e in book:
-            books.append(model_to_dict(e))
-    print(books)
+            eDirt = model_to_dict(e)
+            print('3 ', e)
+            sta = BookStatus.objects.filter(isbn=eDirt['isbn']).values('lend_number').first()
+            eDirt['lend_number'] = sta['lend_number']
+            books.append(eDirt)
+
+    print('1', books)
     return render(request, "bookInfo.html", {'books_ret': books})
 
 #查询页面的输入框搜索
@@ -50,8 +57,11 @@ def bookSearch(request):
         s_isbn = request.POST.get("search-isbn")
         search_result = BookInfo.objects.filter(bookName__contains=s_name, isbn__contains=s_isbn)
         for i in search_result:
-            arr.append(model_to_dict(i))
-        print(arr)
+            iDirt = model_to_dict(i)
+            st = BookStatus.objects.filter(isbn=iDirt['isbn']).values('lend_number').first()
+            iDirt['lend_number'] = st['lend_number']
+            arr.append(iDirt)
+    print('2 ', arr)
     return HttpResponse(json.dumps(arr), content_type='application/json')
 
 
@@ -60,19 +70,30 @@ def bookSearch(request):
 def delete(request):
     r = request.POST.get("isbn")
     models.BookInfo.objects.filter(isbn=r).delete()
+    models.BookStatus.objects.filter(isbn = r).delete()
     return HttpResponse(json.dumps({}), content_type='application/json')
 
 
 # 根据类别id获取类别
 @csrf_exempt
 def getCategory(request):
-    categories = models.Category.objects.filter(disable=0).all()
-    rets = []
-    for category in categories:
-        rets.append({
-            "id": category.id,
-            "name": category.name
-        })
+    # categories = models.Category.objects.filter(disable=0).all()
+    # rets = []
+    # for category in categories:
+    #     rets.append({
+    #         "id": category.id,
+    #         "name": category.name
+    #     })
+    # print(rets)
+    # return HttpResponse(json.dumps(rets), content_type='application/json')
+    request.encoding = 'utf-8'
+    rets=[]
+    if request.POST:
+        t = request.POST.get("title")
+        search_id = models.Category.objects.filter(name = t).values('id')
+        search_r = models.BookInfo.objects.filter(id = search_id['id'])
+        for i in search_r:
+                rets.append(model_to_dict(i))
     print(rets)
     return HttpResponse(json.dumps(rets), content_type='application/json')
 

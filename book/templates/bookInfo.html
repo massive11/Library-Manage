@@ -74,7 +74,7 @@
         </div>
 
         <div class="text-right" style="margin-right:75%">
-            <select>
+            <select id="select-id">
                 <option>全部</option>
                 <option value="人文">人文</option>
                 <option value="科技">科技</option>
@@ -82,14 +82,14 @@
                 <option value="艺术">艺术</option>
                 <option value="外文">外文</option>
             </select>
-            <button form="book-info-form" class="btn btn-primary" type="submit" id="btn-search">查询</button>
+            <button form="book-info-form" class="btn btn-primary" type="button" id="btn-search">查询</button>
         </div>
 
         <div class="panel-heading">
             <h3 class="panel-title" style="text-align:center">图书信息</h3>
         </div>
         <div class="panel-body">
-            <table class="table table-hover">
+            <table id='tb' class="table table-hover">
                 <thead>
                 <tr>
                     <th>ISBN</th>
@@ -111,10 +111,10 @@
                         <td class="book-press">{{ book.press }}</td>
                         <td class="book-category">{{ book.category_id }}</td>
                         <td class="book-number">{{ book.book_number }}</td>
-                        <td class="book-available">{{ book.book_number }}</td>
+                        <td class="book-available">{{ book.lend_number }}</td>
                         <td>
-                            <button type="button" id="update-but" class="update-btn" data-toggle="modal">修改</button>
-                            <button type="button" id="delete-but" class="delete-btn" data-toggle="modal">删除</button>
+                            <button type="button" id="update-but" class="update-btn">修改</button>
+                            <button type="button" id="delete-but" class="delete-btn">删除</button>
                         </td>
                     </tr>
                 {% endfor %}
@@ -263,22 +263,56 @@
 </div>
 
 <script type="text/javascript">
-    window.onload = function () {
-        let searchname = $("#input-name").val();
-        let searchisbn = $("#input-isbn").val();
-        $.ajax({
-            type: "POST",
-            url: "/book/bookSearch",
-            data: {
-                "search-name": searchname,
-                "search-isbn": searchisbn,
-            },
-            success: function (data) {
-                console.log(data)
-            }
-        });
-    };
+    function updateTb(isbn,bookName,author, press,category_id,book_number,book_available){
+        var body = document.getElementById('tb').getElementsByTagName('tbody')[0];
+        var tr = document.createElement('tr');
+        body.appendChild(tr);
+        var td1= document.createElement('td');
+        td1.className = 'isbn';
+        td1.innerText = isbn;
+        tr.appendChild(td1);
+        var td2 = document.createElement('td');
+        td2.className = 'book-name';
+        td2.innerText = bookName;
+        tr.appendChild(td2);
+        var td3 = document.createElement('td');
+        td3.className = 'book-author';
+        td3.innerText = author;
+        tr.appendChild(td3);
+        var td4 = document.createElement('td');
+        td4.className = 'book-press';
+        td4.innerText = press;
+        tr.appendChild(td4);
+        var td5 = document.createElement('td');
+        td5.className = 'book-category';
+        td5.innerText = category_id;
+        tr.appendChild(td5);
+        var td6 = document.createElement('td');
+        td6.className = 'book-number';
+        td6.innerText = book_number;
+        tr.appendChild(td6);
+        var td7 = document.createElement('td');
+        td7.className = 'book-available';
+        td7.innerText = book_available;
+        tr.appendChild(td7);
+        var td8 = document.createElement('td');
+        tr.appendChild(td8);
+        var button1 = document.createElement('button');
+        button1.type = 'button';
+        button1.id = 'update-but';
+        button1.className = "update-btn";
+        button1.innerText = '修改';
+        td8.appendChild(button1);
+        var button2 = document.createElement('button');
+        button2.type = 'button';
+        button2.id = 'delete-but';
+        button2.className = "delete-btn";
+        button2.innerText = '删除';
+        td8.appendChild(button2);
+    }
 
+    document.getElementById('tb');
+    function init(){
     $(".delete-btn").click(function () {
         $("#delete").modal('show');
         tr = $(this).parents("tr");
@@ -294,6 +328,7 @@
                 "isbn": tr.find(".isbn").text()
             },
             success: function () {
+
                 $("#delete").modal('hide');
             }
         });
@@ -339,6 +374,8 @@
         });
 
     });
+    }
+    init();
 
     $("#btn-search").click(function () {
         let searchname = $("#input-name").val();
@@ -350,11 +387,40 @@
                 "search-name": searchname,
                 "search-isbn": searchisbn,
             },
-            success: function () {
+            success: function (data) {
+                console.log(data)
+                console.log(data.forEach((item)=>{console.log(2)}));
+                var b = document.getElementById('tb').getElementsByTagName('tbody')[0];
+                for(let i = 0,len = b.rows.length;i < len;i++){b.deleteRow(0)}
+                data.forEach((item)=>{
+                    updateTb(item['isbn'],item['bookName'],item[ 'author'],item['press'],item['category_id'],item['book_number'],item['lend_number']);
+                    console.log(item['isbn'], item['lend_number']);
+                    init();
+                })
+            }
         });
     });
 
-
+{% comment %}    $("#select-id").change(function() {
+        var title = $(this).text();  // 1、获取选择下拉框的标题
+        console.log(title);
+        //var id  = $(this).val();  获取选中的ID值
+        $.ajax({   //2、发送给后端
+            url: "book/getCategory",
+            type: 'POST',  //设置发送的方式 这里假设为POST
+            data: {title: title},  //把选中的标题发给后端
+            success:function(data) {
+                // 4、这里写成功后更新页面的操作
+                console.log(data.forEach((item)=>{console.log(2)}));
+                var b = document.getElementById('tb').getElementsByTagName('tbody')[0];
+                for(let i = 0,len = b.rows.length;i < len;i++){b.deleteRow(0)}
+                data.forEach((item)=>{
+                    updateTb(item['isbn'],item['bookName'],item[ 'author'],item['press'],item['category_id'],item['book_number'],item['book_available'])
+                    init();
+                })
+            }
+        })
+    });{% endcomment %}
 </script>
 </body>
 </html>

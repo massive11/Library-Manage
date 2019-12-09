@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0b8f7c6-37ad-4689-9d37-9911891c60c0" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/book/book_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/book/book_info.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/book/templates/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/book/templates/add.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/book/templates/bookInfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/book/templates/bookInfo.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/book/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/book/urls.py" afterDir="false" />
     </list>
@@ -37,8 +36,8 @@
       <file leaf-file-name="add.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/book/templates/add.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="135" column="85" selection-start-line="135" selection-start-column="85" selection-end-line="135" selection-end-column="85" />
+            <state relative-caret-position="468">
+              <caret line="120" column="18" lean-forward="true" selection-start-line="120" selection-start-column="18" selection-end-line="120" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -52,11 +51,23 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="book_info.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/book/book_info.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="627">
+              <caret line="46" column="21" lean-forward="true" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#36#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="bookInfo.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/book/templates/bookInfo.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="541">
-              <caret line="284" column="66" lean-forward="true" selection-start-line="284" selection-start-column="66" selection-end-line="284" selection-end-column="66" />
+            <state relative-caret-position="598">
+              <caret line="397" column="27" lean-forward="true" selection-start-line="397" selection-start-column="27" selection-end-line="397" selection-end-column="27" />
               <folding>
                 <element signature="n#style#0;n#head#0;n#html#0;n#!!top" />
                 <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -89,28 +100,12 @@
                 <element signature="n#style#0;n#span#2;n#div#6;n#form#0;n#div#2;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#div#2;n#body#0;n#html#0;n#!!top" />
                 <element signature="e#10711#10718#0#HTML" expanded="true" />
+                <element signature="e#11570#11586#0#HTML" />
+                <element signature="e#11338#11485#0#HTML" />
+                <element signature="e#12310#12612#0#HTML" />
+                <element signature="e#12836#13414#0#HTML" />
+                <element signature="e#13336#13608#0#HTML" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="book_info.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/book/book_info.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="31" column="12" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
-              <folding>
-                <element signature="e#0#36#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bookadd.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/book/templates/bookadd.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="692">
-              <caret line="185" selection-start-line="185" selection-end-line="187" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -118,8 +113,8 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/book/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="10" column="64" lean-forward="true" selection-start-line="10" selection-start-column="64" selection-end-line="10" selection-end-column="64" />
+            <state relative-caret-position="160">
+              <caret line="8" column="67" lean-forward="true" selection-start-line="8" selection-start-column="67" selection-end-line="8" selection-end-column="67" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -149,6 +144,9 @@
       <find>book-category</find>
       <find>category</find>
       <find>update-category</find>
+      <find>btn-search</find>
+      <find>btn btn-primary</find>
+      <find>d-btn</find>
       <find>books_ret</find>
     </findStrings>
   </component>
@@ -299,9 +297,9 @@
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.17412935" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.21293533" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.22587065" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14270501" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14270501" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" weight="0.0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32969698" />
@@ -319,19 +317,19 @@
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19170243" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14270501" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3272727" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.22686568" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32969698" />
-      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.0" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.43757576" />
+      <window_info anchor="right" id="Database" order="3" weight="0.0" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.22587065" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="SciView" order="4" />
@@ -345,6 +343,11 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/library/settings.py">
@@ -465,20 +468,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/book/templates/add.html">
+    <entry file="file://$PROJECT_DIR$/book/templates/bookadd.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="135" column="85" selection-start-line="135" selection-start-column="85" selection-end-line="135" selection-end-column="85" />
+        <state relative-caret-position="3500">
+          <caret line="185" selection-start-line="185" selection-end-line="187" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/book/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="10" column="64" lean-forward="true" selection-start-line="10" selection-start-column="64" selection-end-line="10" selection-end-column="64" />
+        <state relative-caret-position="160">
+          <caret line="8" column="67" lean-forward="true" selection-start-line="8" selection-start-column="67" selection-end-line="8" selection-end-column="67" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/book/templates/add.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="120" column="18" lean-forward="true" selection-start-line="120" selection-start-column="18" selection-end-line="120" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -489,17 +499,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/book/templates/bookadd.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="692">
-          <caret line="185" selection-start-line="185" selection-end-line="187" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/book/book_info.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="31" column="12" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
+        <state relative-caret-position="627">
+          <caret line="46" column="21" lean-forward="true" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>
@@ -508,8 +511,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/book/templates/bookInfo.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="541">
-          <caret line="284" column="66" lean-forward="true" selection-start-line="284" selection-start-column="66" selection-end-line="284" selection-end-column="66" />
+        <state relative-caret-position="598">
+          <caret line="397" column="27" lean-forward="true" selection-start-line="397" selection-start-column="27" selection-end-line="397" selection-end-column="27" />
           <folding>
             <element signature="n#style#0;n#head#0;n#html#0;n#!!top" />
             <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -542,6 +545,11 @@
             <element signature="n#style#0;n#span#2;n#div#6;n#form#0;n#div#2;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#div#2;n#body#0;n#html#0;n#!!top" />
             <element signature="e#10711#10718#0#HTML" expanded="true" />
+            <element signature="e#11570#11586#0#HTML" />
+            <element signature="e#11338#11485#0#HTML" />
+            <element signature="e#12310#12612#0#HTML" />
+            <element signature="e#12836#13414#0#HTML" />
+            <element signature="e#13336#13608#0#HTML" />
           </folding>
         </state>
       </provider>
