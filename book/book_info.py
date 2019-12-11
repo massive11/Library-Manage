@@ -11,13 +11,14 @@ from django.views.decorators.csrf import csrf_exempt
 # 添加页面的数据交互
 def add(request):
     request.encoding = 'utf-8'
-    ctx = {}
+    #ctx = {}
     if request.POST:
         isbn = request.POST['input-isbn']
         bookName = request.POST['input-name']
         author = request.POST['input-author']
         press = request.POST['input-press']
-        category_id = request.POST['input-category']
+        #category_id = request.POST['input-category']
+        category_id = request.POST.get("selectCategory")
         book_number = request.POST['input-num']
         available = request.POST['input-num']
         print(isbn, bookName, author, press, category_id, book_number)
@@ -26,9 +27,16 @@ def add(request):
         status = BookStatus(isbn = isbn, book_number=book_number,lend_number=available)
         status.save()
         book.save()
-
     return render(request, "add.html")
 
+# 输入页面根据类别id获取类别
+# @csrf_exempt
+# def addCategory(request):
+#     request.encoding = 'utf-8'
+#     if request.POST:
+#         id = request.POST.get("grade")
+#         g = models.Category.objects.filter(id = id).values('name')
+#     return HttpResponse(json.dumps(g), content_type='application/json')
 
 #查询页面的数据展示
 @csrf_exempt
@@ -39,12 +47,11 @@ def bookInfo(request):
         book = BookInfo.objects.all()
         for e in book:
             eDirt = model_to_dict(e)
-            print('3 ', e)
             sta = BookStatus.objects.filter(isbn=eDirt['isbn']).values('lend_number').first()
             eDirt['lend_number'] = sta['lend_number']
             books.append(eDirt)
 
-    print('1', books)
+    print(books)
     return render(request, "bookInfo.html", {'books_ret': books})
 
 #查询页面的输入框搜索
@@ -55,13 +62,18 @@ def bookSearch(request):
     if request.POST:
         s_name = request.POST.get("search-name")
         s_isbn = request.POST.get("search-isbn")
-        search_result = BookInfo.objects.filter(bookName__contains=s_name, isbn__contains=s_isbn)
+        s_id = request.POST.get("s_category")
+        print(s_id)
+        if s_id == '0':
+            search_result = BookInfo.objects.filter(bookName__contains=s_name, isbn__contains=s_isbn)
+        else:
+            search_result = BookInfo.objects.filter(category_id = s_id, bookName__contains=s_name, isbn__contains=s_isbn)
         for i in search_result:
             iDirt = model_to_dict(i)
             st = BookStatus.objects.filter(isbn=iDirt['isbn']).values('lend_number').first()
             iDirt['lend_number'] = st['lend_number']
             arr.append(iDirt)
-    print('2 ', arr)
+    print(arr)
     return HttpResponse(json.dumps(arr), content_type='application/json')
 
 
@@ -96,6 +108,7 @@ def getCategory(request):
                 rets.append(model_to_dict(i))
     print(rets)
     return HttpResponse(json.dumps(rets), content_type='application/json')
+
 
 #修改页面的数据交互
 @csrf_exempt

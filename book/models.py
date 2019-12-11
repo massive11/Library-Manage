@@ -11,7 +11,7 @@ class Category(models.Model):
 
 #可借数量
 class BookStatus(models.Model):
-    isbn = models.CharField('isbn', primary_key=True, max_length=8, unique=True)
+    isbn = models.CharField('isbn', primary_key=True, max_length=13, unique=True)
     book_number = models.IntegerField('book_number', default=0)
     lend_number = models.IntegerField('lend_number', default=0)
 
@@ -20,7 +20,7 @@ class BookStatus(models.Model):
 
 #图书信息
 class BookInfo(models.Model):
-    isbn = models.CharField('isbn',primary_key=True, max_length=8,unique = True)
+    isbn = models.CharField('isbn',primary_key=True, max_length=13,unique = True)
     bookName = models.CharField('bookName', max_length=100)
     author = models.CharField('author',max_length=100)
     press = models.CharField('press',max_length=100)

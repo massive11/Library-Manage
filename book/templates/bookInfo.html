@@ -69,18 +69,18 @@
         <div class="form-group has-feedback">
             <div class="input-group" style="width: 25%;margin-top: 10px">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-book"></span></span>
-                <input id="input-isbn" class="form-control" placeholder="请输入ISBN" maxlength="100">
+                <input id="input-isbn" class="form-control" placeholder="请输入ISBN" maxlength="13">
             </div>
         </div>
 
         <div class="text-right" style="margin-right:75%">
-            <select id="select-id">
-                <option>全部</option>
-                <option value="人文">人文</option>
-                <option value="科技">科技</option>
-                <option value="自然">自然</option>
-                <option value="艺术">艺术</option>
-                <option value="外文">外文</option>
+            <select id="select-id" name="s_category">
+                <option value="0">全部</option>
+                <option value="1">人文</option>
+                <option value="2">科技</option>
+                <option value="3">自然</option>
+                <option value="4">艺术</option>
+                <option value="5">外文</option>
             </select>
             <button form="book-info-form" class="btn btn-primary" type="button" id="btn-search">查询</button>
         </div>
@@ -155,7 +155,7 @@
                         <label for="ad-bname">书名</label>
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-book"></span></span>
-                            <input id="update-name" class="form-control" placeholder="修改书名" maxlength="20">
+                            <input id="update-name" class="form-control" placeholder="修改书名" maxlength="100">
                         </div>
 
                         <span style="color:red;display: none;" class="tips"></span>
@@ -167,7 +167,7 @@
                         <label for="ad-writer">作者</label>
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                            <input id="update-author" class="form-control" placeholder="修改作者" maxlength="10">
+                            <input id="update-author" class="form-control" placeholder="修改作者" maxlength="100">
                         </div>
 
                         <span style="color:red;display: none;" class="tips"></span>
@@ -179,7 +179,7 @@
                         <label for="update-press">出版社</label>
                         <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></span>
-                            <input id="update-press" class="form-control" placeholder="修改出版社" maxlength="10">
+                            <input id="update-press" class="form-control" placeholder="修改出版社" maxlength="100">
                         </div>
 
                         <span style="color:red;display: none;" class="tips"></span>
@@ -245,17 +245,17 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                    信息
+                    确认信息
                 </h4>
             </div>
             <div class="modal-body">
                 是否删除图书：<a id="delete-book_name"></a>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消
                 </button>
                 <button type="button" class="btn btn-primary" id="d-btn">
-                    提交更改
+                    确认删除
                 </button>
             </div>
         </div><!-- /.modal-content -->
@@ -263,11 +263,11 @@
 </div>
 
 <script type="text/javascript">
-    function updateTb(isbn,bookName,author, press,category_id,book_number,book_available){
+    function updateTb(isbn, bookName, author, press, category_id, book_number, book_available) {
         var body = document.getElementById('tb').getElementsByTagName('tbody')[0];
         var tr = document.createElement('tr');
         body.appendChild(tr);
-        var td1= document.createElement('td');
+        var td1 = document.createElement('td');
         td1.className = 'isbn';
         td1.innerText = isbn;
         tr.appendChild(td1);
@@ -312,88 +312,98 @@
     }
 
     document.getElementById('tb');
-    function init(){
-    $(".delete-btn").click(function () {
-        $("#delete").modal('show');
-        tr = $(this).parents("tr");
-        $("#delete-book_name").text(tr.find(".book-name").text());
 
-    });
+    function init() {
+        $(".delete-btn").click(function () {
+            $("#delete").modal('show');
+            tr = $(this).parents("tr");
+            $("#delete-book_name").text(tr.find(".book-name").text());
 
-    $("#d-btn").click(function () {
-        $.ajax({
-            type: "POST",
-            url: "/book/delete",
-            data: {
-                "isbn": tr.find(".isbn").text()
-            },
-            success: function () {
-
-                $("#delete").modal('hide');
-            }
         });
 
-    });
+        $("#d-btn").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/book/delete",
+                data: {
+                    "isbn": tr.find(".isbn").text()
+                },
+                success: function () {
 
-    $(".update-btn").click(function () {
-        $("#update").modal('show');
-        tr = $(this).parents("tr");
+                    $("#delete").modal('hide');
+                }
+            });
 
-        $("#update-isbn").val(tr.find(".isbn").text());
-        $("#update-name").val(tr.find(".book-name").text());
-        $("#update-press").val(tr.find(".book-press").text());
-        $("#update-author").val(tr.find(".book-author").text());
-        $("#update-category").val(tr.find(".book-category").text());
-        $("#update-number").val(tr.find(".book-number").text());
-        $("#update-available").val(tr.find(".book-available").text());
-
-    });
-
-    $("#btn-update").click(function () {
-        let bookname = $("#update-name").val();
-        let bookpress = $("#update-press").val();
-        let bookauthor = $("#update-author").val();
-        let bookcategory = $("#update-category").val();
-        let booknumber = $("#update-number").val();
-        let bookavailable = $("#update-available").val();
-        $.ajax({
-            type: "POST",
-            url: "/book/update",
-            data: {
-                "isbn": tr.find(".isbn").text(),
-                "book-name": bookname,
-                "book-press": bookpress,
-                "book-author": bookauthor,
-                "book-category": bookcategory,
-                "book-number": booknumber,
-                "book-available": bookavailable
-            },
-            success: function () {
-                $("#update").modal('hide');
-            }
         });
 
-    });
+        $(".update-btn").click(function () {
+            $("#update").modal('show');
+            tr = $(this).parents("tr");
+
+            $("#update-isbn").val(tr.find(".isbn").text());
+            $("#update-name").val(tr.find(".book-name").text());
+            $("#update-press").val(tr.find(".book-press").text());
+            $("#update-author").val(tr.find(".book-author").text());
+            $("#update-category").val(tr.find(".book-category").text());
+            $("#update-number").val(tr.find(".book-number").text());
+            $("#update-available").val(tr.find(".book-available").text());
+
+        });
+
+        $("#btn-update").click(function () {
+            let bookname = $("#update-name").val();
+            let bookpress = $("#update-press").val();
+            let bookauthor = $("#update-author").val();
+            let bookcategory = $("#update-category").val();
+            let booknumber = $("#update-number").val();
+            let bookavailable = $("#update-available").val();
+            $.ajax({
+                type: "POST",
+                url: "/book/update",
+                data: {
+                    "isbn": tr.find(".isbn").text(),
+                    "book-name": bookname,
+                    "book-press": bookpress,
+                    "book-author": bookauthor,
+                    "book-category": bookcategory,
+                    "book-number": booknumber,
+                    "book-available": bookavailable
+                },
+                success: function () {
+                    $("#update").modal('hide');
+                }
+            });
+
+        });
     }
+
     init();
 
     $("#btn-search").click(function () {
         let searchname = $("#input-name").val();
         let searchisbn = $("#input-isbn").val();
+        let options = $("#select-id option:selected");
+        searchcategory = options.val();
+        console.log(searchcategory);
         $.ajax({
             type: "POST",
             url: "/book/bookSearch",
             data: {
                 "search-name": searchname,
                 "search-isbn": searchisbn,
+                "s_category": searchcategory,
             },
             success: function (data) {
                 console.log(data)
-                console.log(data.forEach((item)=>{console.log(2)}));
+                console.log(data.forEach((item) => {
+                    console.log(2)
+                }));
                 var b = document.getElementById('tb').getElementsByTagName('tbody')[0];
-                for(let i = 0,len = b.rows.length;i < len;i++){b.deleteRow(0)}
-                data.forEach((item)=>{
-                    updateTb(item['isbn'],item['bookName'],item[ 'author'],item['press'],item['category_id'],item['book_number'],item['lend_number']);
+                for (let i = 0, len = b.rows.length; i < len; i++) {
+                    b.deleteRow(0)
+                }
+                data.forEach((item) => {
+                    updateTb(item['isbn'], item['bookName'], item['author'], item['press'], item['category_id'], item['book_number'], item['lend_number']);
                     console.log(item['isbn'], item['lend_number']);
                     init();
                 })
@@ -401,7 +411,7 @@
         });
     });
 
-{% comment %}    $("#select-id").change(function() {
+    {% comment %}$("#select-id").change(function() {
         var title = $(this).text();  // 1、获取选择下拉框的标题
         console.log(title);
         //var id  = $(this).val();  获取选中的ID值

@@ -80,7 +80,7 @@
             <label for="text-isbn">ISBN</label>
             <div class="input-group">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
-                <input name="input-isbn" class="form-control" placeholder="请输入ISBN" maxlength="8"
+                <input name="input-isbn" class="form-control" placeholder="请输入ISBN" maxlength="20"
                        type="text">
             </div>
         </div>
@@ -120,16 +120,24 @@
                 <input name="input-num" class="form-control" placeholder="请输入数量" maxlength="4">
             </div>
         </div>
-        <select class="form-control shift-info">
+        {% comment %}<select class="form-control shift-info">
             <option>数据加载中..</option>
-        </select>
+        </select>{% endcomment %}
 
         <div class="form-group has-feedback">
             <label for="text-category">类别</label>
-            <div class="input-group">
+            <select name="selectCategory" id="input-category" style="width: 600px;height: 40px" onchange="gradeChange()">
+                <option value="0">请选择类别</option>
+                <option value="1">人文</option>
+                <option value="2">科技</option>
+                <option value="3">自然</option>
+                <option value="4">艺术</option>
+                <option value="5">外文</option>
+            </select>
+            {% comment %}<div class="input-group">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                 <input name="input-category" class="form-control" placeholder="请选择类别" maxlength="4">
-            </div>
+            </div>{% endcomment %}
         </div>
     </form>
     <div class="text-right">
@@ -137,7 +145,20 @@
     </div>
 </div>
 <script>
-    window.onload = function () {
+{% comment %}       function gradeChange(){
+        let objS = document.getElementById("input-category");
+        let grade = objS.options[objS.selectedIndex].value;
+        $.ajax({   //2、发送给后端
+            url: "book/add",
+            type: 'POST',  //设置发送的方式 这里假设为POST
+            data: {grade:grade},  //把选中的标题发给后端
+            success:function() {
+                }
+        })
+       }{% endcomment %}
+</script>
+
+    {% comment %}window.onload = function () {
         $.ajax({
             type: "POST",
             url: "/book/get_category",
@@ -152,11 +173,8 @@
                 }).prop('placeholder', '请输入或选择班次名..');
             }
         });
-    }
+    }{% endcomment %}
 
-
-</script>
->
 </body>
 
 </html>
