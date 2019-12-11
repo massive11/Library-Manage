@@ -29,15 +29,6 @@ def add(request):
         book.save()
     return render(request, "add.html")
 
-# 输入页面根据类别id获取类别
-# @csrf_exempt
-# def addCategory(request):
-#     request.encoding = 'utf-8'
-#     if request.POST:
-#         id = request.POST.get("grade")
-#         g = models.Category.objects.filter(id = id).values('name')
-#     return HttpResponse(json.dumps(g), content_type='application/json')
-
 #查询页面的数据展示
 @csrf_exempt
 def bookInfo(request):
@@ -89,15 +80,6 @@ def delete(request):
 # 根据类别id获取类别
 @csrf_exempt
 def getCategory(request):
-    # categories = models.Category.objects.filter(disable=0).all()
-    # rets = []
-    # for category in categories:
-    #     rets.append({
-    #         "id": category.id,
-    #         "name": category.name
-    #     })
-    # print(rets)
-    # return HttpResponse(json.dumps(rets), content_type='application/json')
     request.encoding = 'utf-8'
     rets=[]
     if request.POST:

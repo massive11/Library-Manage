@@ -411,26 +411,6 @@
         });
     });
 
-    {% comment %}$("#select-id").change(function() {
-        var title = $(this).text();  // 1、获取选择下拉框的标题
-        console.log(title);
-        //var id  = $(this).val();  获取选中的ID值
-        $.ajax({   //2、发送给后端
-            url: "book/getCategory",
-            type: 'POST',  //设置发送的方式 这里假设为POST
-            data: {title: title},  //把选中的标题发给后端
-            success:function(data) {
-                // 4、这里写成功后更新页面的操作
-                console.log(data.forEach((item)=>{console.log(2)}));
-                var b = document.getElementById('tb').getElementsByTagName('tbody')[0];
-                for(let i = 0,len = b.rows.length;i < len;i++){b.deleteRow(0)}
-                data.forEach((item)=>{
-                    updateTb(item['isbn'],item['bookName'],item[ 'author'],item['press'],item['category_id'],item['book_number'],item['book_available'])
-                    init();
-                })
-            }
-        })
-    });{% endcomment %}
 </script>
 </body>
 </html>
