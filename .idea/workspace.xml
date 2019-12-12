@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0b8f7c6-37ad-4689-9d37-9911891c60c0" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/book/static/css/login.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/book/templates/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/book/templates/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/book/templates/register.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/book/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/book/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/book/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/book/book_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/book/book_info.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/book/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/book/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/book/templates/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/book/templates/add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/book/templates/bookInfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/book/templates/bookInfo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/book/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/book/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/book/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/book/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/library/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -323,7 +309,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1080" extended-state="6" />
+    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
