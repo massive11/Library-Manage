@@ -1,4 +1,24 @@
 from django.db import models
+from django import forms
+
+#用户信息表
+class Users(models.Model):
+    u_id = models.CharField(max_length=10, unique = True)
+    u_password = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'Users'
+
+#登录表单
+class UserForm(forms.Form):
+    username = forms.CharField(label="用户名", max_length=128, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(label="密码", max_length=256, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+#注册表单
+class RegisterForm(forms.Form):
+    username = forms.CharField(label="用户名", max_length=128, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password1 = forms.CharField(label="密码", max_length=256, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password2 = forms.CharField(label="确认密码", max_length=256, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
 #书目类别
 class Category(models.Model):
@@ -29,4 +49,3 @@ class BookInfo(models.Model):
 
     class Meta:
         db_table = 'book_info'
-

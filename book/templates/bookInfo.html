@@ -48,13 +48,15 @@
     </style>
 </head>
 <body>
+<!-- 导航栏 -->
 <ul>
-    <li><a href="#home">主页</a></li>
+    <li><a href="/book/index">主页</a></li>
     <li><a href="info">图书查询</a></li>
     <li><a href="add">新增图书</a></li>
-
+    <li><a href="/book/logout" style="color: #2aabd2">退出登录</a></li>
 </ul>
 
+<!-- 搜索框、下拉菜单和表单 -->
 <div class="panel panel-default" style="width: 90%;margin-left: 5%;margin-top: 1%">
     <form id="book-info-form" action="/book/info" method="post">
         {% csrf_token %}

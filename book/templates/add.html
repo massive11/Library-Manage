@@ -134,10 +134,6 @@
                 <option value="4">艺术</option>
                 <option value="5">外文</option>
             </select>
-            {% comment %}<div class="input-group">
-                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                <input name="input-category" class="form-control" placeholder="请选择类别" maxlength="4">
-            </div>{% endcomment %}
         </div>
     </form>
     <div class="text-right">
@@ -145,35 +141,7 @@
     </div>
 </div>
 <script>
-{% comment %}       function gradeChange(){
-        let objS = document.getElementById("input-category");
-        let grade = objS.options[objS.selectedIndex].value;
-        $.ajax({   //2、发送给后端
-            url: "book/add",
-            type: 'POST',  //设置发送的方式 这里假设为POST
-            data: {grade:grade},  //把选中的标题发给后端
-            success:function() {
-                }
-        })
-       }{% endcomment %}
 </script>
-
-    {% comment %}window.onload = function () {
-        $.ajax({
-            type: "POST",
-            url: "/book/get_category",
-            data: {},
-            success: function (ret) {
-                $('.shift-info').editableSelect({
-                    effects: 'slide',
-                    onSelect: function (element) {
-                        //$('.shift-info').attr({'data-val':element.val(),'placeholder':'请输入或选择班次名..'});　
-                        $('.shift-info').attr('data-val', "什么东西")
-                    }
-                }).prop('placeholder', '请输入或选择班次名..');
-            }
-        });
-    }{% endcomment %}
 
 </body>
 

@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.forms.models import model_to_dict
 import json
 from django.views.decorators.csrf import csrf_exempt
-
+from django.shortcuts import render,redirect
 
 # 添加页面的数据交互
 def add(request):
@@ -32,6 +32,9 @@ def add(request):
 #查询页面的数据展示
 @csrf_exempt
 def bookInfo(request):
+    if not request.session.get('is_login', None):
+        #     登录状态不允许注册。你可以修改这条原则！
+            return redirect("/book/index")
     request.encoding = 'utf-8'
     books = []
     if True:
@@ -75,7 +78,6 @@ def delete(request):
     models.BookInfo.objects.filter(isbn=r).delete()
     models.BookStatus.objects.filter(isbn = r).delete()
     return HttpResponse(json.dumps({}), content_type='application/json')
-
 
 # 根据类别id获取类别
 @csrf_exempt
